@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{template.html}">
+
+<head>
+    <title>Listagem de Filmes</title>
+</head>
+
+<body>
+
+    <div layout:fragment="conteudo">
+
+        <h1>Listagem de Filmes</h1>
+
+        <a href="/filme/formulario">Novo</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>NOME</th>
+                    <th>DURAÇÂO</th>
+                    <th>ANO</th>
+                    <th>GÊNERO</th>
+                    <th>AÇÕES</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr th:each="filme : ${lista}">
+                    <td th:text="${filme.nome}"></td>
+                    <td th:text="${filme.duracao}"></td>
+                    <td th:text="${filme.ano}"></td>
+                    <td th:text="${filme.genero}"></td>
+                    <td>
+                        <a th:href="@{/filme/formulario?id={id}(id=${filme.id})}">Editar</a>
+
+                        <form action="/filme" method="post">
+                            <input type="hidden" name="_method" value="delete">
+                            <input type="hidden" name="id" th:value="${filme.id}">
+
+                            <input type="submit" value="Excluir">
+                        </form>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>
